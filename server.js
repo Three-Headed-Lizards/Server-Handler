@@ -26,7 +26,7 @@ app.post("/tagpoint", function(request, response) {
   console.log(request.body.name);
 
   // For now, just respond with an ACK
-  response.send("ACK");
+  response.send("ACK\n");
 });
 
 app.listen(3000);
