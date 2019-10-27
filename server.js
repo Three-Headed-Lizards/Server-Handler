@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({extended : true}));
 */
 app.post("/tagpoint", function(request, response) {
   console.log(request.body.name);
+  console.log(request.body.project);
 
   // For now, just respond with an ACK
   response.send("ACK\n");
