@@ -1,0 +1,33 @@
+{
+  "name": "csci-server",
+  "version": "1.0.0",
+  "description": "A Server to handle camera requests from embedded applications using opencv",
+  "main": "server.js",
+  "dependencies": {
+    "ejs-lint": "^0.3.0",
+    "nunjucks": "^3.2.0",
+    "pg-promise": "^9.3.3",
+    "pug": "^2.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo nope",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Three-Headed-Lizards/Server-Handler.git"
+  },
+  "keywords": [
+    "csci3308",
+    "camera",
+    "detection",
+    "drones"
+  ],
+  "author": "Theo Lincke",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Three-Headed-Lizards/Server-Handler/issues"
+  },
+  "homepage": "https://github.com/Three-Headed-Lizards/Server-Handler#readme"
+}

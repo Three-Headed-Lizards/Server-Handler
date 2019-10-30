@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <title>CSCI3308 Demo</title>
+  </head>
+
+  <body>
+             <table style="width:60%">
+  <tr>
+    <th>Project</th>
+    <th>Description</th>
+    <th>Technologies</th>
+  </tr>
+  <tr>
+    <td>
+      <a style="color: red;" href="https://github.com/curmc/sentinet_cpp">Sentinet</a> 
+    </td>
+    <td>
+      <p>A Robust Robotics framework in C++17</p>
+    </td> 
+    <td>
+      <p>Modern C++17 UNIX Sockets ZMQ sentinet_message_pkg (bellow)</p>
+    </td> 
+  </tr> 
+  
+{% for x in data %}
+  Point: {{ x.password }}, {{ x.email }}, {{ x.id }}
+{% endfor %}
+
+
+  <tr>
+    <td>
+      <a style="color: red;" href="https://github.com/tlincke125/cTensor">cTensor</a>
+    </td> 
+    <td>
+      <p>A Almost No Dependency Neural Network and Linear Algebra in C++</p>
+    </td>
+    <td>  
+      <p>OpenCV (The one dependency), Gradient Descent, Singular Value Decomposition</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a style="color: red;" href="https://github.com/curmc/sentinet_message_pkg">Sentinet Message Package</a>
+    </td>
+    <td>
+      <p>A crazy fast serialization library</p>
+    </td>
+    <td>
+      <p>POISX C99</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a style="color: red;" href="https://github.com/tlincke125/rubiksCube">rubiksCube</a>
+    </td>
+    <td>
+      <p>An any dimensional rubiks cube solver</p>
+    </td>
+    <td>
+      <p>Java</p>
+    </td>
+  </tr>
+</table>
+
+  </body>
+
+
+</html>
+
+
+
+
+<p>Hello {{ firstName }}</p>
