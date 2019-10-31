@@ -81,7 +81,7 @@ app.get('/login', function(req, resp) {
 
 
 app.post('/login-form', function(req, resp) {
-  query = `SELECT \'${req.body.username} FROM users 
+  query = `SELECT \'${req.body.username} FROM users`;
 });
 
 
