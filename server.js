@@ -56,8 +56,6 @@ app.get('/', function(req, res) {
         db.any(query)
         .then(function (rows) {
             res.render('index.html');
-
-
         })
         .catch(function (err) {
             // display error message in case an error
@@ -92,7 +90,7 @@ app.post('/submit-form', function(req, resp) {
   query = `INSERT INTO users (email, password, score) VALUES (\'${req.body.email}\', crypt(\'${req.body.password}\', gen_salt(\'bf\', 8)), 0);`
   db.any(query);
   console.log(req.body);
-  resp.send("hi");
+  resp.send("submited form");
 });
 
 /**
