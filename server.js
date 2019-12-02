@@ -44,6 +44,9 @@ const dbConfig = {
 // Create a new db handler
 let db = pgp(dbConfig);
 
+
+
+///////////////////////////////// CONNER INDEX HOME PAGE ///////////////
 /**
 * @brief First gateway for root directory - shows high scores
 *
@@ -70,6 +73,7 @@ app.get('/', function(req, res) {
 });
 
 
+//////////////////////////////////////// REGISTER LOGIN ////////////////////////////
 /**
 * The Login form
 */
@@ -77,11 +81,9 @@ app.get('/login', function(req, resp) {
   resp.render('login.html');
 });
 
-
 app.post('/login-form', function(req, resp) {
   query = `SELECT \'${req.body.username} FROM users`;
 });
-
 
 /**
  * The submit a login name
@@ -96,6 +98,9 @@ app.post('/submit-form', function(req, resp) {
   resp.send("submited form");
 });
 
+
+
+//////////////////////////////////////////// TAGPOINT /////////////////////////////
 /**
 * @brief Expects a post request with user, time stamp, and date
 *
