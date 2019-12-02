@@ -87,6 +87,9 @@ app.post('/login-form', function(req, resp) {
  * The submit a login name
  */
 app.post('/submit-form', function(req, resp) {
+
+  //TODO Filter input
+
   query = `INSERT INTO users (email, password, score) VALUES (\'${req.body.email}\', crypt(\'${req.body.password}\', gen_salt(\'bf\', 8)), 0);`
   db.any(query);
   console.log(req.body);
@@ -99,6 +102,9 @@ app.post('/submit-form', function(req, resp) {
 * @param function responds with 
 */
 app.post("/tagpoint", function(request, response) {
+
+  // TODO store in database smartly` 
+
   console.log(request.body);
   query = `INSERT INTO game (username, timestamp, tagtime) VALUES (\'${request.body.username}\', \'${request.body.timestamp}'\, \'${request.body.tagtime}\');`
   db.any(query);
