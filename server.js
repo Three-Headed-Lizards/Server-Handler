@@ -100,7 +100,9 @@ app.post('/submit-form', function(req, resp) {
 */
 app.post("/tagpoint", function(request, response) {
   console.log(request.body);
-  
+  query = `INSERT INTO game (username, timestamp, tagtime) VALUES (\'${request.body.username}\', \'${request.body.timestamp}'\, \'${request.body.tagtime}\');`
+  db.any(query);
+
   response.send("ACK\n");
 });
 
