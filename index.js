@@ -1,8 +1,9 @@
-function show_home(req, resp, DataBaseHandler) {
+module.exports = { 
+  show_home : function (req, res, DataBaseHandler) {
     var query = 'SELECT FROM camera_game_db.users;';
 
   
-          db.any(query)
+          DataBaseHandler.any(query)
           .then(function (rows) {
               res.render('index.html');
           })
@@ -17,4 +18,4 @@ function show_home(req, resp, DataBaseHandler) {
               })
           })
   }
-
+}
