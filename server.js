@@ -7,6 +7,10 @@
 
 // 'use-strict'
 
+const loginreg = require('./registerlogin.js');
+const index = require('./index.js');
+const tagpoint = require('./tagpoint.js');
+
 // Similar to includes - include the node modules
 // Express js framework
 const express = require('express');
@@ -41,10 +45,9 @@ const dbConfig = {
   password: 'notarealpassword'
 };
 
+
 // Create a new db handler
 let db = pgp(dbConfig);
-
-
 
 ///////////////////////////////// CONNER INDEX HOME PAGE ///////////////
 /**
@@ -54,22 +57,7 @@ let db = pgp(dbConfig);
 * @param res - the response to send
 */
 app.get('/', function(req, res) {
-  var query = 'SELECT FROM camera_game_db.users;';
-
-        db.any(query)
-        .then(function (rows) {
-            res.render('index.html');
-        })
-        .catch(function (err) {
-            // display error message in case an error
-            console.log(err);
-            res.render('index.html', {
-                title: 'Home Page',
-                data: '',
-                color: '',
-                color_msg: ''
-            })
-        })
+  index.show_home(req, res, db);
 });
 
 
@@ -77,8 +65,8 @@ app.get('/', function(req, res) {
 /**
 * The Login form
 */
-app.get('/login', function(req, resp) {
-  resp.render('login.html');
+app.get('/login', function(req, res) {
+  loginreg.register_home(req, res);
 });
 
 app.post('/login-form', function(req, resp) {
@@ -89,13 +77,7 @@ app.post('/login-form', function(req, resp) {
  * The submit a login name
  */
 app.post('/submit-form', function(req, resp) {
-
-  //TODO Filter input
-
-  query = `INSERT INTO users (email, password, score) VALUES (\'${req.body.email}\', crypt(\'${req.body.password}\', gen_salt(\'bf\', 8)), 0);`
-  db.any(query);
-  console.log(req.body);
-  resp.send("submited form");
+  loginreg.login_form(req, res, db);
 });
 
 
@@ -106,15 +88,8 @@ app.post('/submit-form', function(req, resp) {
 *
 * @param function responds with 
 */
-app.post("/tagpoint", function(request, response) {
-
-  // TODO store in database smartly` 
-
-  console.log(request.body);
-  query = `INSERT INTO game (username, timestamp, tagtime) VALUES (\'${request.body.username}\', \'${request.body.timestamp}'\, \'${request.body.tagtime}\');`
-  db.any(query);
-
-  response.send("ACK\n");
+app.post("/tagpoint", function(req, resp) {
+  tagpoint.myFunction(req, resp, db);
 });
 
 
