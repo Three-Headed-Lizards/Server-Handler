@@ -5,28 +5,18 @@
  * @description : server
  */
 
-// 'use-strict'
-
 const loginreg = require('./registerlogin.js');
 const index = require('./index.js');
+const userpage = require('./userpage.js');
 const tagpoint = require('./tagpoint.js');
-
-// Similar to includes - include the node modules
-// Express js framework
+const bodyParser = require('body-parser');
+const nunjucks = require('nunjucks');
+const pgp = require('pg-promise')();
 const express = require('express');
 
 // Create a new instance of express application
 let app = express();
 app.use(express.urlencoded());
-
-// Body parser for post requests
-const bodyParser = require('body-parser');
-
-// Nunjucks for templates because pug is stupid
-const nunjucks = require('nunjucks');
-
-// Postgres handler
-const pgp = require('pg-promise')();
 
 // Nunjucks configuration - the folder for template files
 var PATH_TO_TEMPLATES = './templates';
@@ -34,6 +24,7 @@ nunjucks.configure(PATH_TO_TEMPLATES, {
   autoescape: true,
   express: app
 });
+
 
 // Databse configuration - 
 // TODO - Password and user need to be externally accessed
@@ -92,6 +83,9 @@ app.post("/tagpoint", function(req, resp) {
   tagpoint.myFunction(req, resp, db);
 });
 
+app.get("/user/:username", function(req, resp) {
+  userpage.render_userpage(req, resp, db, req.params.username);
+});
 
 /**
 * @brief Primary get request that renders index
