@@ -8,6 +8,7 @@
 const loginreg = require('./registerlogin.js');
 const index = require('./index.js');
 const userpage = require('./userpage.js');
+const globaluserpage = require('./globaluserpage.js');
 const tagpoint = require('./tagpoint.js');
 const bodyParser = require('body-parser');
 const nunjucks = require('nunjucks');
@@ -85,6 +86,10 @@ app.post("/tagpoint", function(req, resp) {
 
 app.get("/user/:username", function(req, resp) {
   userpage.render_userpage(req, resp, db, req.params.username);
+});
+
+app.get("/usersall", function(req, resp) {
+  globaluserpage.render_global_user_page(req, resp, db);
 });
 
 /**

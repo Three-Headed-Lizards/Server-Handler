@@ -17,9 +17,16 @@ module.exports = {
     .then(function (rows) {
       if(rows[0].count != 0) {
         console.log("Gottem"); 
+        response.render("userpage.html", {
+          username_val : username,
+          count_val : rows[0].count,
+          tagtime_val : rows[0].sum
+        });
       }
       else {
         console.log("No one with that username");
+        response.render("nouserwiththatname.html", {
+          username_val : username});
       }
     })
     .catch(function(err) {
