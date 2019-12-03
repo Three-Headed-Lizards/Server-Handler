@@ -5,11 +5,11 @@
  * @description : server
  */
 
-const loginreg = require('./registerlogin.js');
-const index = require('./index.js');
-const userpage = require('./userpage.js');
-const globaluserpage = require('./globaluserpage.js');
-const tagpoint = require('./tagpoint.js');
+const loginreg = require('./js/registerlogin.js');
+const index = require('./js/index.js');
+const userpage = require('./js/userpage.js');
+const globaluserpage = require('./js/globaluserpage.js');
+const tagpoint = require('./js/tagpoint.js');
 const bodyParser = require('body-parser');
 const nunjucks = require('nunjucks');
 const pgp = require('pg-promise')();

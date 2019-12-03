@@ -5,11 +5,13 @@
  * @description : globaluserpage
  */
 
-
 module.exports = {
   render_global_user_page : function (req, resp, dbh) {
     
-    var query = "select users.username as username, COUNT(game.tagtime) as count, SUM(game.tagtime) as sum from game inner join users on game.userid = users.userID GROUP BY users.username;";
+    // Limit the number of high scores (They are ordered by count)
+    limit = 10;
+
+    var query = `select users.firstname as firstname, users.lastname as lastname, users.username as username, COUNT(game.tagtime) as count, SUM(game.tagtime) as sum from game inner join users on game.userid = users.userID GROUP BY users.username, users.firstname, users.lastname order by count desc limit ${limit};`
 
     dbh.any(query) 
     .then(function (rows) {
@@ -25,8 +27,4 @@ module.exports = {
       resp.render("globaluserpage.html");
     });
   }
-
 }
-
-
-
