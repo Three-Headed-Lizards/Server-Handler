@@ -2,7 +2,7 @@
 
 module.exports = {
     register_form : function (req, res) {
-      res.render('login.html');
+      res.render('userRegister.html');
     },
 
     submit_register_data : function (req, res, dbh) {
@@ -19,7 +19,7 @@ module.exports = {
 
       var unique_user = `select * from users where username = \'${username}\' or email = \'${email}\';`;
 
-      var query = `insert into users (username, firstname, lastname, email, password) values (\'${username}\', \'${firstname}\', \'${lastname}\', \'${email}\', crypt(\'${password}\', gen_salt(\'bf\')));`; 
+      var query = `insert into users (username, firstname, lastname, email, password) values (\'${username}\', \'${firstname}\', \'${lastname}\', \'${email}\', crypt(\'${password}\', gen_salt(\'bf\')));`;
 
       var unique_email_bool = false;
       var unique_user_bool = false;
