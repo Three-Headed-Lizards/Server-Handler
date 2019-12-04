@@ -57,19 +57,19 @@ app.get('/', function(req, res) {
 /**
 * The Login form
 */
-app.get('/login', function(req, res) {
-  loginreg.register_home(req, res);
+app.get('/register', function(req, resp) {
+  loginreg.register_form(req, resp);
 });
 
-app.post('/login-form', function(req, resp) {
-  query = `SELECT \'${req.body.username} FROM users`;
+app.post('/login', function(req, resp) {
+  loginreg.register_form(req, resp);
 });
 
 /**
  * The submit a login name
  */
 app.post('/submit-form', function(req, resp) {
-  loginreg.login_form(req, res, db);
+  loginreg.submit_register_data(req, resp, db);
 });
 
 
