@@ -66,7 +66,7 @@ app.get('/login', function(req, resp){
 });
 
 app.post('/login', function(req, resp) {
-  loginreg.register_form(req, resp);
+  loginreg.submit_login_data(req, resp);
 });
 
 /**
