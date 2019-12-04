@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <title>Home</title>
+    <title>{{ firstname_val }}</title>
 	<link rel='icon' href='../resources/img/favicon.ico' type='image/x-icon'/>
     <!-- Bootstrap core CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">  
@@ -22,13 +22,13 @@
 	  <div class="collapse navbar-collapse" id="navbarText">
 		<ul class="navbar-nav mr-auto">
 		 <li class="nav-item">
-                   <a class="nav-link active" href="/">Home<span class="sr-only">(current)</span></a>
+			<a class="nav-link" href="/">Home</a>
 		  </li>
 		  <li class="nav-item">
-			<a class="nav-link" href="/usersall">High Scores</a>
+                      <a class="nav-link" href="/usersall">High Scores</a>
 		  </li>
-		  <li class="nav-item">
-			<a class="nav-link" href="/login">Login Page</a>
+		  <li class="nav-item active">
+                    <a class="nav-link" href="/login">Login Page<span class="sr-only">(current)</span></a>
 		  </li>
 		</ul>
 		<div class="form-inline my-2 my-lg-0">
@@ -40,40 +40,38 @@
         <div class="container">
           <br><br><br>
         <center>
-          <h1>Welcome, Here Are the Top {{ num_players }} Players:</h1>
+          <h1>Hello, {{ firstname_val }}</h1>
         </center>
               <table class="table">
-                {% for point in player_top_info %}
                       <tr>
                         <td scop="col" class="text-center">
-                          <b>First Name:</b> <h3>{{ point.firstname }}</h3>
+                          <b>First Name:</b> <h3>{{ firstname_val }}</h3>
                         </td>
                         <td scop="col" class="text-center">
-                          <b>Last Name:</b> <h3>{{ point.lastname }}</h3>
+                          <b>Last Name:</b> <h3>{{ lastname_val }}</h3>
                         </td>
                         <td scop="col" class="text-center">
-                          <b>User Name:</b> <h3>{{ point.username }}</h3>
+                          <b>User Name:</b> <h3>{{ username_val }}</h3>
                         </td>
                       </tr>
 
                       <tr>
                           <td scop="col" class="text-center">
-                            <b>Tag Count: </b>{{ point.count }}
+                            <b>Tag Count: </b>{{ count_val }}
                             <! -- Can't figure out how to add spacing between rows, bit of a hack aye? -->
                             <br><br><br><br><br>
                           </td>
                           <td scop="col" class="text-center">
-                            <b>Total Tag Time: </b>{{ point.sum }}
+                            <b>Total Tag Time: </b>{{ tagtime_val }}
                             <br><br><br><br><br>
                           </td>
                           <td scop="col" class="text-center">
-                            <b>Total Score: </b>{{ point.sum + point.count }}
+                            <b>Total Score: </b>{{ count_val }}
                             <br><br><br><br><br>
                           </td>
                       </tr>
                       <tr>
                       <tr>
-                {% endfor %}
               </table>
         </div>
 

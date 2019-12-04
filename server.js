@@ -5,28 +5,19 @@
  * @description : server
  */
 
-// 'use-strict'
-
-const loginreg = require('./registerlogin.js');
-const index = require('./index.js');
-const tagpoint = require('./tagpoint.js');
-
-// Similar to includes - include the node modules
-// Express js framework
+const loginreg = require('./js/registerlogin.js');
+const index = require('./js/index.js');
+const userpage = require('./js/userpage.js');
+const globaluserpage = require('./js/globaluserpage.js');
+const tagpoint = require('./js/tagpoint.js');
+const bodyParser = require('body-parser');
+const nunjucks = require('nunjucks');
+const pgp = require('pg-promise')();
 const express = require('express');
 
 // Create a new instance of express application
 let app = express();
 app.use(express.urlencoded());
-
-// Body parser for post requests
-const bodyParser = require('body-parser');
-
-// Nunjucks for templates because pug is stupid
-const nunjucks = require('nunjucks');
-
-// Postgres handler
-const pgp = require('pg-promise')();
 
 // Nunjucks configuration - the folder for template files
 var PATH_TO_TEMPLATES = './templates';
@@ -34,6 +25,7 @@ nunjucks.configure(PATH_TO_TEMPLATES, {
   autoescape: true,
   express: app
 });
+
 
 // Databse configuration - 
 // TODO - Password and user need to be externally accessed
@@ -65,19 +57,19 @@ app.get('/', function(req, res) {
 /**
 * The Login form
 */
-app.get('/login', function(req, res) {
-  loginreg.register_home(req, res);
+app.get('/register', function(req, resp) {
+  loginreg.register_form(req, resp);
 });
 
-app.post('/login-form', function(req, resp) {
-  query = `SELECT \'${req.body.username} FROM users`;
+app.post('/login', function(req, resp) {
+  loginreg.register_form(req, resp);
 });
 
 /**
  * The submit a login name
  */
 app.post('/submit-form', function(req, resp) {
-  loginreg.login_form(req, res, db);
+  loginreg.submit_register_data(req, resp, db);
 });
 
 
@@ -92,6 +84,13 @@ app.post("/tagpoint", function(req, resp) {
   tagpoint.myFunction(req, resp, db);
 });
 
+app.get("/user/:username", function(req, resp) {
+  userpage.render_userpage(req, resp, db, req.params.username);
+});
+
+app.get("/usersall", function(req, resp) {
+  globaluserpage.render_global_user_page(req, resp, db);
+});
 
 /**
 * @brief Primary get request that renders index
