@@ -32,7 +32,7 @@ nunjucks.configure(PATH_TO_TEMPLATES, {
 const dbConfig = {
   host: 'localhost',
   port: 5432,
-  database: 'camera_game_db',
+  database: 'the-game-three',
   user: 'postgres',
   password: 'notarealpassword'
 };
