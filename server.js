@@ -33,7 +33,7 @@ const dbConfig = {
   host: 'localhost',
   port: 5432,
   database: 'camera_game_db',
-  user: 'postgres',
+  user: 'ryanhorn',
   password: 'notarealpassword'
 };
 
