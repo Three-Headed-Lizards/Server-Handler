@@ -1,6 +1,9 @@
 
 
 module.exports = {
+    login_form : function(req, res){
+      res.render('userLogin.html');
+    },
     register_form : function (req, res) {
       res.render('userRegister.html');
     },

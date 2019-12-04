@@ -27,7 +27,7 @@ nunjucks.configure(PATH_TO_TEMPLATES, {
 });
 
 
-// Databse configuration - 
+// Databse configuration -
 // TODO - Password and user need to be externally accessed
 const dbConfig = {
   host: 'localhost',
@@ -61,6 +61,10 @@ app.get('/register', function(req, resp) {
   loginreg.register_form(req, resp);
 });
 
+app.get('/login', function(req, resp){
+  loginreg.login_form(req, resp);
+});
+
 app.post('/login', function(req, resp) {
   loginreg.register_form(req, resp);
 });
@@ -78,7 +82,7 @@ app.post('/submit-form', function(req, resp) {
 /**
 * @brief Expects a post request with user, time stamp, and date
 *
-* @param function responds with 
+* @param function responds with
 */
 app.post("/tagpoint", function(req, resp) {
   tagpoint.myFunction(req, resp, db);
