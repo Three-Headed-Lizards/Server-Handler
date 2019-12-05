@@ -4,6 +4,7 @@ module.exports = {
   
           DataBaseHandler.any(query)
           .then(function (rows) {
+                console.log("here");
               res.render('index.html', {
                 // We limit to 3, but in the rare case there are not 3 players,
                 // get the count
@@ -18,6 +19,8 @@ module.exports = {
                 num_players : 0,
                 player_top_info : [0]
               })
-          })
+          });
+
+    console.log("here2");
   }
 }
