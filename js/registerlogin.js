@@ -45,7 +45,7 @@ module.exports = {
         if(rows.length == 0) {
           dbh.any(query)
           .then(function (rows) {
-            res.render('userLogin.html');
+            res.send('userLogin.html');
           })
           .catch(function (err) {
             console.log(err);
