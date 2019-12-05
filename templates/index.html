@@ -1,10 +1,26 @@
 <!-- Player Information Page -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
+<!-- this style tag should add spacing in between the rows in the table. weird way to do it but okay-->
+    <style> 
+      table{ 
+      border-collapse:separate; 
+      border-spacing: 0 20px; 
+      }
+      td{ 
+      width: 150px; 
+      text-align: center; 
+      border: 1px solid black; 
+      padding: 5px;
+      }
+      h2{ 
+      color: #4287f5; 
+      } 
+    </style>
     <title>Home</title>
 	<link rel='icon' href='../resources/img/favicon.ico' type='image/x-icon'/>
     <!-- Bootstrap core CSS -->
@@ -14,7 +30,7 @@
   <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	  <a class="navbar-brand" href="home.html">
-		<img class="rounded-circle" src="../resources/img/cu_boulder_logo.jpg" alt="" width="30" height="30">
+		  <img class="rounded-circle" src="../resources/img/cu_boulder_logo.jpg" alt="" width="30" height="30">
 	  </a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
@@ -63,7 +79,7 @@
                           <td scop="col" class="text-center">
                             <b>Tag Count: </b>{{ point.count }}
                             <! -- Can't figure out how to add spacing between rows, bit of a hack aye? -->
-                            <br><br><br><br><br>
+                            <!-- <br><br><br><br><br> -->
                           </td>
                           <td scop="col" class="text-center">
                             <b>Total Tag Time: </b>{{ point.sum }}
@@ -71,10 +87,10 @@
                           </td>
                           <td scop="col" class="text-center">
                             <b>Total Score: </b>{{ point.sum + point.count }}
-                            <br><br><br><br><br>
+                            <!-- <br><br><br><br><br> -->
                           </td>
-                      </tr>
-                      <tr>
+		      </tr>
+		      <tr>
                       <tr>
                 {% endfor %}
               </table>
