@@ -6,6 +6,7 @@ module.exports = {
     },
 
     submit_login_data : function(req, res, dbh){
+      console.log("herE");
       var email_or_user = req.body.email_or_user;
       var password = req.body.password;
 
@@ -45,7 +46,7 @@ module.exports = {
         if(rows.length == 0) {
           dbh.any(query)
           .then(function (rows) {
-            res.send('userLogin.html');
+            res.render('userLogin.html');
           })
           .catch(function (err) {
             console.log(err);
