@@ -15,8 +15,6 @@ module.exports = {
 
     dbh.any(query) 
     .then(function (rows) {
-      console.log(rows[0].username);
-      console.log(rows);
       resp.render("globaluserpage.html", 
       {
         data : rows 

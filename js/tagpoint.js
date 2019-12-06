@@ -21,7 +21,6 @@ module.exports = {
   
         dataBaseHandle.any(query)
         .then(function (rows) {
-          console.log("inserted successfully");
         })
         .catch(function(err) {
           console.log('error', err);

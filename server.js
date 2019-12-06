@@ -5,7 +5,9 @@
  * @description : server
  */
 
-// TODO - create a config.js with all this junk
+var user_id = "";
+
+
 /*
  * Dotenv allows to read local
  * environment variables (different local and
@@ -20,6 +22,7 @@ const isProduction = process.env.NODE_ENV === 'production'
 const express = require('express');
 let app = express();
 app.use(express.urlencoded());
+app.use(express.static('static'));
 
 // Both necessary for our express app, no config for now
 const bodyParser = require('body-parser');
@@ -30,6 +33,9 @@ nunjucks.configure(PATH_TO_TEMPLATES, {
   autoescape: true,
   express: app
 });
+
+const session = require('express-session');
+
 
 /*
  * These are Four recommendations I found here: 
@@ -47,27 +53,27 @@ const limiter = rateLimit({
   windowsMS: 1 * 60 * 1000, // 1 minute
   max: 20,
 })
+
 const tagpointPostLimiter = rateLimit({
   windowsMS: 1 * 60 * 1000, // 1 minute
   max: 5,
 })
 
-// // Note that this limits every endpoint
+// This limits every endpoint
 app.use(limiter);
 
 // Cors limits cross origin resource sharing
-// const cors = require('cors');
-// const origin = {
-//   origin: isProduction ? 'https://the-game-three.herokuapp.com' : '*',
-// }
-// app.use(cors(origin));
-//
+const cors = require('cors');
+const origin = {
+  origin: isProduction ? 'https://the-game-three.herokuapp.com' : '*',
+}
+app.use(cors(origin));
+
 const {body, check} = require('express-validator');
 
 // Local Modules 
 const pgp = require('pg-promise')();
 
-console.log(process.env);
 // Databse configuration -
 const dbConfig = {
   host: `${process.env.DB_HOST}`,
@@ -81,13 +87,27 @@ const dbConfig = {
 // Create a new db handler
 let db = pgp(dbConfig);
 
-
 // Local modules
 const loginreg = require('./js/registerlogin.js');
 const index = require('./js/index.js');
 const userpage = require('./js/userpage.js');
 const globaluserpage = require('./js/globaluserpage.js');
 const tagpoint = require('./js/tagpoint.js');
+
+
+function check_if_validated_id(user_id) {
+  var query = `select * from active_users where userid = ${user_id};`;
+}
+
+function start_session(user_id, username) {
+  var query = `select * from active_users where userid = ${user_id};`;
+  var query = `delete from active_users where userid = ${user_id};`;
+}
+
+function endsession(user_id) {
+  var query = `select * from active_users where userid = ${user_id};`;
+  var query = `delete from active_users where userid = ${user_id};`;
+}
 
 
 ///////////////////////////////// CONNER INDEX HOME PAGE ///////////////
@@ -111,13 +131,20 @@ app.get('/register', function(req, resp) {
 });
 
 app.get('/login', function(req, resp){
-  loginreg.login_form(req, resp);
+  loginreg.login_form(req, resp, user_id);
 });
 
+app.get("/logout", function(req, resp) {
+  userpage.logout_form(req, resp, user_id);
+});
 
 /**
  * The submit a login name
  */
+app.post('/submitloginform', function(req, resp) {
+  loginreg.login_submit_form(req, resp, db, user_id);
+});
+
 app.post('/submitform', function(req, resp) {
   loginreg.submit_register_data(req, resp, db);
 });
@@ -129,34 +156,8 @@ app.post('/submitform', function(req, resp) {
 *
 * @param function responds with
 */
-app.post(
-  "/tagpoint", 
-  [
-    check('username')
-      .not()
-      .isEmpty()
-      .isLength({min: 3, max: 255})
-      .trim(),
-    check('timestamp')
-      .not()
-      .isEmpty()
-      .isLength({min: 3, max: 255})
-      .trim(),
-    check('date')
-      .not()
-      .isEmpty()
-      .isLength({min: 3, max: 255})
-      .trim(),
-  ],
-
-  (req, resp) => {
-
-    const errors = validationResult(req);
-    if(!errors.isEmpty()) {
-      return response.status(422).json({errors: errors.array()});
-    }
-
-    tagpoint.myFunction(req, resp, db);
+app.post("/tagpoint", (req, resp) => {
+  tagpoint.myFunction(req, resp, db);
 });
 
 app.get("/user/:username", function(req, resp) {
@@ -177,5 +178,9 @@ app.get("/usersall", function(req, resp) {
 //   res.render('index.html');
 // });
 //
+
+app.get('*',function (req, res) {
+        res.redirect('/');
+});
 
 app.listen(process.env.PORT || 3000);

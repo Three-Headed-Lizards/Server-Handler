@@ -1,12 +1,45 @@
 
 
 module.exports = {
-    login_form : function(req, res){
+    login_form : function(req, res, user_id) {
+      if(user_id != "") {
+        res.send(`/user/${user_id}`);
+        return true;
+      }
       res.render('userLogin.html');
+    }, 
+
+    login_submit_form : function(req, res, dbh, user_id){
+
+      var username = req.body.username;
+      var password = req.body.password;
+
+      var db_query = `SELECT username FROM users WHERE username=\'${username}\' and password=crypt(\'${password}\', password);`;
+
+      dbh.any(db_query)
+      .then(function (data) {
+        if(data.length == 0){
+          res.render('userLogin.html', {
+            statusval : "Error, no user with that username or incorrect password"
+          });
+        } else {
+          user_id = data[0].username;
+          res.redirect(`/user/${username}`);
+          return true;
+        }
+      })
+      .catch(function (err) {
+        console.log(err);
+        res.send("Internal Error");
+      });
+    },
+
+    logout_form : function(req, res, user_id) {
+      user_id = "";
+      res.redirect('/login');
     },
 
     submit_login_data : function(req, res, dbh){
-      console.log("herE");
       var email_or_user = req.body.email_or_user;
       var password = req.body.password;
 
@@ -28,7 +61,6 @@ module.exports = {
       var username = req.body.username;
       var firstname = req.body.firstname;
       var lastname = req.body.lastname;
-      console.log(email, password, username, firstname, lastname);
 
       // Do some filtering of the data then return
       // by rendering a 404 error if invalid
