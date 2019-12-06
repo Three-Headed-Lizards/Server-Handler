@@ -51,7 +51,7 @@ app.use(compression());
 const rateLimit = require('express-rate-limit');
 const limiter = rateLimit({
   windowsMS: 1 * 60 * 1000, // 1 minute
-  max: 20,
+  max: 5,
 })
 
 const tagpointPostLimiter = rateLimit({
