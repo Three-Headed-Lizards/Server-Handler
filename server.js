@@ -56,12 +56,12 @@ const tagpointPostLimiter = rateLimit({
 app.use(limiter);
 
 // Cors limits cross origin resource sharing
-const cors = require('cors');
-const origin = {
-  origin: isProduction ? 'https://the-game-three.herokuapp.com' : '*',
-}
-app.use(cors(origin));
-
+// const cors = require('cors');
+// const origin = {
+//   origin: isProduction ? 'https://the-game-three.herokuapp.com' : '*',
+// }
+// app.use(cors(origin));
+//
 const {body, check} = require('express-validator');
 
 // Local Modules 
