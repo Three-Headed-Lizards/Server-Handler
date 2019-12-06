@@ -117,7 +117,7 @@ app.get('/login', function(req, resp){
 /**
  * The submit a login name
  */
-app.post('/submit-form', function(req, resp) {
+app.post('/submitform', function(req, resp) {
   loginreg.submit_register_data(req, resp, db);
 });
 
