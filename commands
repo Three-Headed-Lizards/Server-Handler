@@ -33,4 +33,6 @@ SELECT userID from users where
   password = crypt('example_password', password);
 
 
-
+CREATE TABLE active_users (
+    userid serial not null,
+    username varchar(255));
