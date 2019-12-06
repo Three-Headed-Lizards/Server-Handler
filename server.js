@@ -67,6 +67,7 @@ const {body, check} = require('express-validator');
 // Local Modules 
 const pgp = require('pg-promise')();
 
+console.log(process.env);
 // Databse configuration -
 const dbConfig = {
   host: `${process.env.DB_HOST}`,
