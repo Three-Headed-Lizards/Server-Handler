@@ -73,9 +73,20 @@ module.exports = {
       var unique_email_bool = false;
       var unique_user_bool = false;
 
+      //password validation
+
+      var valid_bool = false;
+      var minLength = 5;
+
+      if(password.length >= minLength) {
+        valid_bool = true;
+      } else {
+        valid_bool = false;
+      }
+
       dbh.any(unique_user)
       .then(function (rows) {
-        if(rows.length == 0) {
+        if(rows.length == 0 && valid_bool == true) {
           dbh.any(query)
           .then(function (rows) {
             res.render('userLogin.html');
@@ -83,6 +94,10 @@ module.exports = {
           .catch(function (err) {
             console.log(err);
           });
+        } else if(rows.length == 0 && valid_bool == false){
+           document.getElementById("message_valid").classList.remove("valid");
+           document.getElementById("message_valid").classList.add("invalid");
+           console.log("Nice");
         } else {
           res.send("Invalid username or email, already taken");
         }

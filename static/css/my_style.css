@@ -13,3 +13,21 @@
 	visibility:hidden;
 	height:0px;
 }
+
+.invalid {
+	color: red;
+}
+
+.invalid:before {
+	postion: relative;
+}
+
+.valid {
+	color: green;
+	visibility: hidden;
+}
+
+.valid:before {
+	postion: relative;
+	visibility: hidden;
+}
