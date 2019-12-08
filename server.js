@@ -48,19 +48,13 @@ const compression = require('compression');
 app.use(compression());
 
 // Rate limiter - prevents DDos by limiting connections
-// const rateLimit = require('express-rate-limit');
-// const limiter = rateLimit({
-//   windowsMS: 1 * 60, // 1 minute
-//   max: 5,
-// })
+const rateLimit = require('express-rate-limit');
+const limiter = rateLimit({
+  windowsMS: 1 * 60 * 1000, // 1 minute
+  max: 100,
+})
 
-// const tagpointPostLimiter = rateLimit({
-//   windowsMS: 1 * 60 , // 1 minute
-//   max: 5,
-// })
-
-// // This limits every endpoint
-// app.use(limiter);
+app.use(limiter);
 
 // Cors limits cross origin resource sharing
 const cors = require('cors');
@@ -75,14 +69,14 @@ const {body, check} = require('express-validator');
 const pgp = require('pg-promise')();
 
 // Databse configuration -
-const dbConfig = {
-  host: 'localhost',
-  port: '5432',
-  database: 'camera_game_db',
-  user: 'postgres',
-  password: 'pwdd'
+//
+const dbConfig = { 
+  host: `${process.env.DB_HOST}`,
+  port: process.env.DB_PORT,
+  database: `${process.env.DB_DATABASE}`,
+  user: `${process.env.DB_USER}`,
+  password: `${process.env.DB_PASSWORD}`
 };
-
 
 // Create a new db handler
 let db = pgp(dbConfig);
