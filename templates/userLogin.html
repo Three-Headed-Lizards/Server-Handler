@@ -22,9 +22,19 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
     <title>CSCI 3308 Three Headed Lizards</title>
+    <style> 
+      .bg-img {
+		  min-width: 100%;
+		  height: 100%;
+		  padding: 0;
+          background-image: url("../static/img/backgroundsky.jpg");
+          background-size: cover;
+		  position: absolute;
+      }
+    </style>
 </head>
 <body>
-
+<div class="bg-img"></div>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="home.html">
     <img class="rounded-circle" src="/img/drone.png" alt="" width="30" height="30">
@@ -58,7 +68,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Login</div>
+                    <div class="card-header row justify-content-center"><h2>Login</h2></div>
                     <div class="card-body">
                         <form action="submitloginform" method="post">
                             <div class="form-group row">
