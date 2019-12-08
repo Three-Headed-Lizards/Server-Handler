@@ -1,6 +1,3 @@
-CREATE DATABASE camera_game_db;
-\c csciproject
-
 CREATE EXTENSION pgcrypto;
 
 CREATE TABLE users ( userID serial primary key, username varchar(40) not null unique, firstname varchar(40) not null, lastname varchar(40) not null, email varchar(40) not null unique, password text not null);
@@ -11,8 +8,6 @@ username varchar(40) not null,
 timestamp varchar(40) not null,
 tagtime int not null);
 
-
-// Example adding a user:
 INSERT INTO users 
   (username, 
    firstname, 
@@ -25,14 +20,3 @@ INSERT INTO users
    'user', 
    'testemail@test.com', 
    crypt('example_password', gen_salt('bf')));
-
-
-// Example getting a user:
-SELECT userID from users where 
-  email = 'testemail@test.com' and 
-  password = crypt('example_password', password);
-
-
-CREATE TABLE active_users (
-    userid serial not null,
-    username varchar(255));

@@ -1,33 +1,43 @@
 {
-  "name": "csci-server",
-  "version": "1.0.0",
-  "description": "A Server to handle camera requests from embedded applications using opencv",
-  "main": "server.js",
-  "dependencies": {
-    "ejs-lint": "^0.3.0",
-    "nunjucks": "^3.2.0",
-    "pg-promise": "^9.3.3",
-    "pug": "^2.0.4"
+  "name": "CSCI-Group",
+  "version": "0.3.0",
+  "description": "A sample Node.js app using Express 4",
+  "engines": {
+    "node": "12.x"
   },
-  "devDependencies": {},
+  "main": "server.js",
   "scripts": {
-    "test": "echo nope",
     "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "connect-mongo": "^3.2.0",
+    "connect-pg-simple": "^6.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "express-rate-limit": "^5.0.0",
+    "express-session": "^1.17.0",
+    "express-validator": "^6.3.0",
+    "helmet": "^3.21.2",
+    "mongoose": "^5.7.13",
+    "nunjucks": "^3.2.0",
+    "pg-promise": "^9.3.3"
+  },
+  "devDependencies": {
+    "request": "^2.81.0",
+    "tape": "^4.7.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Three-Headed-Lizards/Server-Handler.git"
+    "url": "https://github.com/heroku/node-js-getting-started"
   },
   "keywords": [
-    "csci3308",
-    "camera",
-    "detection",
-    "drones"
+    "node",
+    "heroku",
+    "express"
   ],
-  "author": "Theo Lincke",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Three-Headed-Lizards/Server-Handler/issues"
-  },
-  "homepage": "https://github.com/Three-Headed-Lizards/Server-Handler#readme"
+  "license": "MIT"
 }

@@ -18,6 +18,7 @@ module.exports = {
                 num_players : 0,
                 player_top_info : [0]
               })
-          })
+          });
+
   }
 }

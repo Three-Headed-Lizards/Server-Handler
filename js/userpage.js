@@ -11,17 +11,15 @@ module.exports = {
     var total_tag_hits;
     var total_tag_time;
 
-    var query_total_tags = `select users.firstname as firstname, users.lastname as lastname, users.username as username, COUNT(game.tagtime) as count, SUM(game.tagtime) as sum from game inner join users on game.userid = users.userID where users.username = \'${username}\' GROUP BY users.username, users.firstname, users.lastname;`;
-
+    var query_total_tags = `select users.firstname, users.lastname, users.username, count(game.tagtime), sum(game.tagtime) from users left join game on users.userID = game.userid where users.username =\'${username}\' GROUP BY users.firstname, users.lastname, users.username;`;
 
     dataBaseHandle.any(query_total_tags)
     .then(function (rows) {
-      if(rows[0].count != 0) {
-        console.log("Gottem"); 
+      if(rows.length != 0) {
         response.render("userpage.html", {
           username_val : username,
           count_val : rows[0].count,
-          tagtime_val : rows[0].sum,
+          tagtime_val : rows[0].count == 0 ? 0 : rows[0].sum,
           lastname_val : rows[0].lastname,
           firstname_val : rows[0].firstname,
         });
