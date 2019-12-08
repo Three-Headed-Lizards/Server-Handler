@@ -153,7 +153,7 @@ app.get('/login', function(req, resp){
 });
 
 app.get("/logout", function(req, resp) {
-  userpage.logout_form(req, resp, user_id);
+  loginreg.logout_form(req, resp, user_id);
 });
 
 /**
