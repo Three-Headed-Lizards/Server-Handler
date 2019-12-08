@@ -5,8 +5,8 @@
  * @description : server
  */
 
-var user_id = "";
-
+var user_id = ""; //this was a poorly named variable, and instead of fixing it
+// I have made it much worse ¯\_(ツ)_/¯
 
 /*
  * Dotenv allows to read local
@@ -51,16 +51,16 @@ app.use(compression());
 const rateLimit = require('express-rate-limit');
 const limiter = rateLimit({
   windowsMS: 1 * 60 * 1000, // 1 minute
-  max: 30,
+  max: 100,
 })
 
-const tagpointPostLimiter = rateLimit({
-  windowsMS: 1 * 60 * 1000, // 1 minute
-  max: 5,
-})
+// const tagpointPostLimiter = rateLimit({
+//   windowsMS: 1 * 60 , // 1 minute
+//   max: 5,
+// })
 
-// This limits every endpoint
-app.use(limiter);
+// // This limits every endpoint
+// app.use(limiter);
 
 // Cors limits cross origin resource sharing
 const cors = require('cors');
@@ -76,16 +76,32 @@ const pgp = require('pg-promise')();
 
 // Databse configuration -
 const dbConfig = {
-  host: `${process.env.DB_HOST}`,
-  port: process.env.DB_PORT,
-  database: `${process.env.DB_DATABASE}`,
-  user: `${process.env.DB_USER}`,
-  password: `${process.env.DB_PASSWORD}`
+  host: 'localhost',
+  port: '5432',
+  database: 'camera_game_db',
+  user: 'postgres',
+  password: 'pwdd'
 };
 
 
 // Create a new db handler
 let db = pgp(dbConfig);
+
+// horrible hack to keep users in session, 
+// please dont use in real life its unsafe, thx
+// though it might be how they actually do it in a different way tho
+
+if (typeof localStorage === "undefined" || localStorage === null) {
+  var LocalStorage = require('node-localstorage').LocalStorage;
+  localStorage = new LocalStorage('./scratch');
+}
+
+
+if(localStorage.getItem('user_name') != null) {
+  user_id = localStorage.getItem('user_name');
+}
+
+
 
 // Local modules
 const loginreg = require('./js/registerlogin.js');
@@ -95,19 +111,21 @@ const globaluserpage = require('./js/globaluserpage.js');
 const tagpoint = require('./js/tagpoint.js');
 
 
-function check_if_validated_id(user_id) {
-  var query = `select * from active_users where userid = ${user_id};`;
-}
+// function check_if_validated_id(user_id) {
+//   var query = `select * from active_users where userid = ${user_id};`;
+// }
 
-function start_session(user_id, username) {
-  var query = `select * from active_users where userid = ${user_id};`;
-  var query = `delete from active_users where userid = ${user_id};`;
-}
+// function start_session(user_id, username) {
+//   var query = `select * from active_users where userid = ${user_id};`;
+//   var query = `delete from active_users where userid = ${user_id};`;
+// }
 
-function endsession(user_id) {
-  var query = `select * from active_users where userid = ${user_id};`;
-  var query = `delete from active_users where userid = ${user_id};`;
-}
+// function endsession(user_id) {
+//   var query = `select * from active_users where userid = ${user_id};`;
+//   var query = `delete from active_users where userid = ${user_id};`;
+// }
+
+
 
 
 ///////////////////////////////// CONNER INDEX HOME PAGE ///////////////
@@ -135,7 +153,7 @@ app.get('/login', function(req, resp){
 });
 
 app.get("/logout", function(req, resp) {
-  userpage.logout_form(req, resp, user_id);
+  loginreg.logout_form(req, resp, user_id);
 });
 
 /**
@@ -146,7 +164,7 @@ app.post('/submitloginform', function(req, resp) {
 });
 
 app.post('/submitform', function(req, resp) {
-  loginreg.submit_register_data(req, resp, db);
+  loginreg.submit_register_data(req, resp, db, user_id);
 });
 
 

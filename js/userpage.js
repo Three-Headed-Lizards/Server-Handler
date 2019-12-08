@@ -13,6 +13,13 @@ module.exports = {
 
     var query_total_tags = `select users.firstname, users.lastname, users.username, count(game.tagtime), sum(game.tagtime) from users left join game on users.userID = game.userid where users.username =\'${username}\' GROUP BY users.firstname, users.lastname, users.username;`;
 
+    var loggedin = false;
+    var currentUser = localStorage.getItem('user_name');
+    if(currentUser != null) {
+      loggedin = true;
+      var currentUserPage = "/user/" + currentUser;
+    }
+
     dataBaseHandle.any(query_total_tags)
     .then(function (rows) {
       if(rows.length != 0) {
@@ -22,6 +29,8 @@ module.exports = {
           tagtime_val : rows[0].count == 0 ? 0 : rows[0].sum,
           lastname_val : rows[0].lastname,
           firstname_val : rows[0].firstname,
+          currentUserPage : currentUserPage,
+          loggedin : loggedin
         });
       }
       else {
