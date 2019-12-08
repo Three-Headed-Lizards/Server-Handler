@@ -101,6 +101,8 @@ if(localStorage.getItem('user_name') != null) {
   user_id = localStorage.getItem('user_name');
 }
 
+
+
 // Local modules
 const loginreg = require('./js/registerlogin.js');
 const index = require('./js/index.js');
