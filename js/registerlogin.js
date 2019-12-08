@@ -2,6 +2,7 @@
 
 module.exports = {
     login_form : function(req, res, user_id) {
+      user_id = localStorage.getItem('user_name');
       if(user_id != "") {
         res.send(`/user/${user_id}`);
         return true;
@@ -40,7 +41,7 @@ module.exports = {
 
     logout_form : function(req, res, user_id) {
       user_id = "";
-      localStorage.clear(); //erase local storage
+      localStorage.setItem('user_name', "");
       res.redirect('/login');
     },
 

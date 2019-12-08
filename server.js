@@ -147,6 +147,7 @@ app.get('/login', function(req, resp){
 });
 
 app.get("/logout", function(req, resp) {
+  localStorage.setItem('user_name', "");
   loginreg.logout_form(req, resp, user_id);
 });
 
