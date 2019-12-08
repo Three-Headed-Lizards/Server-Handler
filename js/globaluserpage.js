@@ -12,12 +12,20 @@ module.exports = {
     limit = 10;
 
     var query = `select users.firstname as firstname, users.lastname as lastname, users.username as username, COUNT(game.tagtime) as count, SUM(game.tagtime) as sum from game inner join users on game.userid = users.userID GROUP BY users.username, users.firstname, users.lastname order by count desc limit ${limit};`
+    var loggedin = false;
+    var currentUser = localStorage.getItem('user_name');
+    if(currentUser != null) {
+      loggedin = true;
+      var currentUserPage = "/user/" + currentUser;
+    }
 
     dbh.any(query) 
     .then(function (rows) {
       resp.render("globaluserpage.html", 
       {
-        data : rows 
+        data : rows,
+        loggedin : loggedin,
+        currentUserPage : currentUserPage
       });
     })
     .catch( function (err) {

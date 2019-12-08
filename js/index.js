@@ -1,14 +1,21 @@
 module.exports = { 
   show_home : function (req, res, DataBaseHandler) {
-    var query = 'select users.firstname as firstname, users.lastname as lastname, users.username as username, COUNT(game.tagtime) as count, SUM(game.tagtime) as sum from game inner join users on game.userid = users.userID  GROUP BY users.username, users.firstname, users.lastname order by count desc limit 3;'
-  
+    var query = 'select users.firstname as firstname, users.lastname as lastname, users.username as username, COUNT(game.tagtime) as count, SUM(game.tagtime) as sum from game inner join users on game.userid = users.userID  GROUP BY users.username, users.firstname, users.lastname order by count desc limit 3;';    
+    var loggedin = false;
+    var currentUser = localStorage.getItem('user_name');
+    if(currentUser != null) {
+      loggedin = true;
+    }
+    var currentUserPage = "/user/" + currentUser;
           DataBaseHandler.any(query)
           .then(function (rows) {
               res.render('index.html', {
                 // We limit to 3, but in the rare case there are not 3 players,
                 // get the count
                 num_players : rows.length,
-                player_top_info : rows
+                player_top_info : rows,
+                loggedin : loggedin,
+                currentUserPage :  currentUserPage
               })
           })
           .catch(function (err) {
@@ -19,6 +26,5 @@ module.exports = {
                 player_top_info : [0]
               })
           });
-
   }
 }

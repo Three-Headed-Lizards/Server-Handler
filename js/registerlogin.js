@@ -13,6 +13,7 @@ module.exports = {
 
       var username = req.body.username;
       var password = req.body.password;
+      var remember_me_bool = req.body.remember;
 
       var db_query = `SELECT username FROM users WHERE username=\'${username}\' and password=crypt(\'${password}\', password);`;
 
@@ -24,6 +25,9 @@ module.exports = {
           });
         } else {
           user_id = data[0].username;
+           if (remember_me_bool == "on") {
+             localStorage.setItem('user_name', data[0].username);
+           }
           res.redirect(`/user/${username}`);
           return true;
         }
@@ -36,6 +40,7 @@ module.exports = {
 
     logout_form : function(req, res, user_id) {
       user_id = "";
+      localStorage.clear(); //erase local storage
       res.redirect('/login');
     },
 
@@ -45,6 +50,9 @@ module.exports = {
 
       var unique_user = `select * from users where username = \'${email_or_user}\' or email = \'${email_or_user}\';`;
       var input_password = `select password from users where username = \'${email_or_user}\' or email = \'${email_or_user}\';`;
+
+
+
       dbh.any(unique_user)
         .then(function (unique_user){
           console.log(unique_user)
@@ -55,12 +63,13 @@ module.exports = {
       res.render('userRegister.html');
     },
 
-    submit_register_data : function (req, res, dbh) {
+    submit_register_data : function (req, res, dbh, user_id) {
       var email = req.body.email;
       var password = req.body.password;
       var username = req.body.username;
       var firstname = req.body.firstname;
       var lastname = req.body.lastname;
+      var remember_me_bool = req.body.remember;
 
       // Do some filtering of the data then return
       // by rendering a 404 error if invalid
@@ -78,8 +87,15 @@ module.exports = {
         if(rows.length == 0) {
           dbh.any(query)
           .then(function (rows) {
-            res.render('userLogin.html');
-          })
+            if (remember_me_bool == "on") {
+             localStorage.setItem('user_name', data[0].username);
+             user_id = data[0].username;
+             //another horrible hack i think
+             res.redirect(`/user/${username}`);
+             return true;
+           }
+          res.render('userLogin.html');
+             })
           .catch(function (err) {
             console.log(err);
           });
