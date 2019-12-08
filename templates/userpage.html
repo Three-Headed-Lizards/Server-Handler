@@ -43,9 +43,12 @@
       </li>
 		</ul>
     {% if loggedin==true %}
+        <form action="/logout" method="get">
+
 		<div class="form-inline my-2 my-lg-0">
 			<button class="btn btn-outline-light my-2 my-sm-0" type="submit">Logout</button>
 		</div>
+        </form>
     {% endif%}
 	  </div>
 	</nav>

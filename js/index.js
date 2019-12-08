@@ -3,7 +3,7 @@ module.exports = {
     var query = 'select users.firstname as firstname, users.lastname as lastname, users.username as username, COUNT(game.tagtime) as count, SUM(game.tagtime) as sum from game inner join users on game.userid = users.userID  GROUP BY users.username, users.firstname, users.lastname order by count desc limit 3;';    
     var loggedin = false;
     var currentUser = localStorage.getItem('user_name');
-    if(currentUser != null) {
+    if(currentUser != "") {
       loggedin = true;
     }
     var currentUserPage = "/user/" + currentUser;
