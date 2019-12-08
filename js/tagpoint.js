@@ -18,6 +18,11 @@ module.exports = {
                   (userid, username, timestamp, tagtime) 
                  VALUES 
                   (\'${userid}\', \'${uname}\', \'${timestmp}'\, \'${tagtime}\');`;
+
+        query2 = `INSERT INTO sessions 
+                  (userid, username, total_sessions) 
+                 VALUES 
+                  (\'${userid}\', \'${uname}\', \'${timestmp}'\, \'${tagtime}\');`;
   
         dataBaseHandle.any(query)
         .then(function (rows) {
