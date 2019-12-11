@@ -55,7 +55,7 @@ Finally, run the server
 
 ## Versioning
 
-0.0.1
+v0.0.1-wip
 
 ## Authors
 
