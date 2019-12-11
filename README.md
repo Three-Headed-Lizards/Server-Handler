@@ -63,7 +63,7 @@ v0.0.1-wip
 * **Connor Ely** - Team Member
 * **Theodorus James Lincke Ⅴ** - Team Member
 * **Layan Makhtoum** - Team Member
-* **Richard Dudley ortecho** - Team Member
+* **Richard Dudley Ortecho** - Team Member
 * Ryan Horn - Team Member
 
 ## License
