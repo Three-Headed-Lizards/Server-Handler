@@ -61,7 +61,7 @@ v0.0.1-wip
 
 * **Zixin Chen** - Team Member
 * **Connor Ely** - Team Member
-* **Theodorus James Lincke Ⅴ** - Team Member
+* **Theodorus James Lincke Ⅴ 💀 👻 👽 🤖 💩 ** - Team Member
 * **Layan Makhtoum** - Team Member
 * **Richard Dudley ortecho** - Team Member
 * Ryan Horn - Team Member
